@@ -3,11 +3,19 @@
 
 import React from "react";
 import Todo from "./Todo";
-
+import "./Todo.css";
 const TodoList = props => {
   return (
     <ul>
-      <Todo />
+      {props.taskList.map(element => (
+        <Todo
+          textContent={element.task}
+          key={element.id}
+          clickElement={props.clickElement}
+          id={element.id}
+          isCompleted={element.completed}
+        />
+      ))}
     </ul>
   );
 };
