@@ -6,7 +6,7 @@ import Todo from "./Todo";
 import "./Todo.css";
 const TodoList = props => {
   return (
-    <ul>
+    <section className="todo-list">
       {props.taskList.map(element => (
         <Todo
           textContent={element.task}
@@ -16,7 +16,7 @@ const TodoList = props => {
           isCompleted={element.completed}
         />
       ))}
-    </ul>
+    </section>
   );
 };
 

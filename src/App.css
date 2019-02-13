@@ -1,0 +1,19 @@
+.todolist-container {
+  width: 100%;
+  margin: 0 auto;
+}
+@media (min-width: 500px) {
+  .todolist-container {
+    width: 90%;
+  }
+}
+@media (min-width: 800px) {
+  .todolist-container {
+    width: 70%;
+  }
+}
+@media (min-width: 1000px) {
+  .todolist-container {
+    width: 50%;
+  }
+}
