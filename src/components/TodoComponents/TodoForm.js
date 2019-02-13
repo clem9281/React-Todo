@@ -9,7 +9,7 @@ const TodoForm = props => {
         value={props.inputValue}
       />
       <button>Add Todo</button>
-      <button>Clear Completed</button>
+      <button onClick={props.onClear}>Clear Completed</button>
     </form>
   );
 };

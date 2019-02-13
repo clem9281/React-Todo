@@ -1,7 +1,6 @@
 import React from "react";
 
 const Todo = props => {
-  console.log(props.isCompleted);
   return (
     <li
       onClick={props.clickElement}

@@ -9,13 +9,7 @@ const todoData = [
     completed: false
   }
 ];
-let newarr = todoData.map(element => {
-  if (element.id === 3) {
-    return { ...element, completed: true };
-  }
-  return element;
-});
-console.log(newarr);
+
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -27,33 +21,41 @@ class App extends React.Component {
       task: ""
     };
   }
+  // handles the change of the input field found in TodoForm
   handleChange = event => {
     this.setState({ task: event.target.value });
   };
+  // handles click event of add todo button in TodoForm
   addTask = event => {
     event.preventDefault();
-
-    const newTask = {
-      task: this.state.task,
-      id: Date.now(),
-      completed: false
-    };
-    this.setState({
-      data: [...this.state.data, newTask],
-      task: ""
-    });
+    if (this.state.task !== "") {
+      const newTask = {
+        task: this.state.task,
+        id: Date.now(),
+        completed: false
+      };
+      this.setState({
+        data: [...this.state.data, newTask],
+        task: ""
+      });
+    }
   };
+  // handles clicking on the li element found in Todo
   handleTaskClick = event => {
     this.setState({
       data: this.state.data.map(element => {
-        console.log(element.id === Number(event.target.id));
         if (element.id === Number(event.target.id)) {
           return { ...element, completed: !element.completed };
         }
         return element;
       })
     });
-    console.log(this.state.data);
+  };
+  clear = event => {
+    event.preventDefault();
+    this.setState({
+      data: this.state.data.filter(element => !element.completed)
+    });
   };
   render() {
     return (
@@ -67,6 +69,7 @@ class App extends React.Component {
           inputOnChange={this.handleChange}
           addTask={this.addTask}
           inputValue={this.state.task}
+          onClear={this.clear}
         />
       </div>
     );
