@@ -4,7 +4,7 @@ import TodoForm from "./components/TodoComponents/TodoForm";
 
 const todoData = [
   {
-    task: "The first task1",
+    task: "Sample Task Data",
     id: Date.now(),
     completed: false
   }
@@ -38,6 +38,10 @@ class App extends React.Component {
         data: [...this.state.data, newTask],
         task: ""
       });
+      localStorage.setItem(
+        "taskData",
+        JSON.stringify([...this.state.data, newTask])
+      );
     }
   };
   // handles clicking on the li element found in Todo
@@ -51,12 +55,26 @@ class App extends React.Component {
       })
     });
   };
+  // handles click even of clear completed in TodoForm, removes completed item from list, and from local storage
   clear = event => {
     event.preventDefault();
+    let newData = this.state.data.filter(element => !element.completed);
     this.setState({
-      data: this.state.data.filter(element => !element.completed)
+      data: newData
     });
+    localStorage.setItem("taskData", JSON.stringify(newData));
   };
+  // handles click event of delete list button in TodoForm, deletes the list data from local storage, and erases the list
+  clearMemory = event => {
+    window.localStorage.clear();
+    this.setState({ data: [] });
+  };
+  componentDidMount() {
+    // if there is anything in the local storage, set the state data to that instead of the sample data. If local storage is an empty array, the list displays nothing, but it doesn't throw an error so I'm going to leave it like that, it might serve a purpose for someone
+    if (localStorage.taskData) {
+      this.setState({ data: JSON.parse(localStorage.getItem("taskData")) });
+    }
+  }
   render() {
     return (
       <div>
@@ -70,6 +88,7 @@ class App extends React.Component {
           addTask={this.addTask}
           inputValue={this.state.task}
           onClear={this.clear}
+          deleteList={this.clearMemory}
         />
       </div>
     );
