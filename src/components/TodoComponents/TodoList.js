@@ -3,21 +3,13 @@
 
 import React from "react";
 import Todo from "./Todo";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AddDeleteButtons from "./AddDeleteButtons";
 
 import "./Todo.css";
 const TodoList = props => {
   return (
     <section className="todo-list">
-      <div className="list-buttons">
-        <button className="add-button">
-          <FontAwesomeIcon icon={["fas", "plus"]} />
-        </button>
-        <button className="delete-button">
-          <FontAwesomeIcon icon={["far", "trash-alt"]} />
-        </button>
-      </div>
-
+      <AddDeleteButtons />
       {props.taskList.map(element => (
         <Todo
           textContent={element.task}
