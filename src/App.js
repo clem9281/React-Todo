@@ -69,6 +69,7 @@ class App extends React.Component {
   clearMemory = event => {
     window.localStorage.clear();
     this.setState({ data: [] });
+    console.log(localStorage);
   };
   componentDidMount() {
     // if there is anything in the local storage, set the state data to that instead of the sample data. If local storage is an empty array, the list displays nothing, but it doesn't throw an error so I'm going to leave it like that, it might serve a purpose for someone

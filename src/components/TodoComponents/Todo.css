@@ -11,9 +11,15 @@
 .todo-list {
   margin: 20px 0;
 }
-p {
+.todo-item {
+  width: 90%;
+  margin: 10px auto;
+  box-shadow: 4px 4px 8px grey, -1px -1px 5px grey;
+  border-radius: 10px;
+  padding: 10px;
   cursor: pointer;
 }
+
 .completed {
   text-decoration: line-through;
 }
