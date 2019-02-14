@@ -1,7 +1,7 @@
 .todolist-container header {
   background: url(https://images.unsplash.com/photo-1549321682-36e2f8000f4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80);
   background-size: cover;
-  background-position: center;
+  background-position: center bottom;
   height: 100px;
   color: white;
   display: flex;
@@ -14,12 +14,34 @@
 .todo-item {
   width: 90%;
   margin: 10px auto;
-  box-shadow: 4px 4px 8px grey, -1px -1px 5px grey;
-  border-radius: 10px;
+  box-shadow: 3px 3px 5px grey, -1px -1px 3px grey;
+  border-radius: 5px;
   padding: 10px;
   cursor: pointer;
 }
-
+.list-buttons {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+}
+.add-button {
+  border-radius: 50%;
+  background: #4caf50;
+  height: 4rem;
+  width: 4rem;
+  border: none;
+  cursor: pointer;
+}
+.delete-button {
+  border-radius: 50%;
+  background: #c62828;
+  height: 4rem;
+  width: 4rem;
+  border: none;
+  margin-left: 2rem;
+  cursor: pointer;
+}
 .completed {
   text-decoration: line-through;
 }
