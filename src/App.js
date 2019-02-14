@@ -49,8 +49,10 @@ class App extends React.Component {
         completed: false,
         deadline: this.state.deadline
       };
+      const newData = this.sortByDeadline([...this.state.data, newTask]);
+
       this.setState({
-        data: [...this.state.data, newTask],
+        data: newData,
         task: "",
         deadline: moment().format("YYYY-MM-DD")
       });
