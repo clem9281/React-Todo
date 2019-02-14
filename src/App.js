@@ -28,7 +28,9 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: todoData,
+      data: localStorage.taskData
+        ? this.sortByDeadline(JSON.parse(localStorage.getItem("taskData")))
+        : todoData,
       task: "",
       deadline: moment().format("YYYY-MM-DD")
     };
@@ -36,7 +38,6 @@ class App extends React.Component {
   // handles the change of the input field found in TodoForm
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(event.target.value);
   };
   // handles click event of add todo button in TodoForm
   addTask = event => {
@@ -50,7 +51,8 @@ class App extends React.Component {
       };
       this.setState({
         data: [...this.state.data, newTask],
-        task: ""
+        task: "",
+        deadline: moment().format("YYYY-MM-DD")
       });
       localStorage.setItem(
         "taskData",
@@ -90,12 +92,10 @@ class App extends React.Component {
     document.getElementById("add-form").classList.toggle("hide");
     document.getElementById("todo-list").classList.toggle("hide");
   };
-  componentDidMount() {
-    // if there is anything in the local storage, set the state data to that instead of the sample data. If local storage is an empty array, the list displays nothing, but it doesn't throw an error so I'm going to leave it like that, it might serve a purpose for someone
-    if (localStorage.taskData) {
-      this.setState({ data: JSON.parse(localStorage.getItem("taskData")) });
-    }
-  }
+  sortByDeadline = array => {
+    return array.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+  };
+
   render() {
     return (
       <section className="todolist-container">
