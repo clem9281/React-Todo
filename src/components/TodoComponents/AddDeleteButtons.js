@@ -1,7 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const AddDeleteButtons = props => {
-  console.log(props);
   return (
     <div className="list-buttons">
       <button className="add-button" id="add-button" onClick={props.clickPlus}>

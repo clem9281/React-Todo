@@ -17,6 +17,9 @@
   cursor: pointer;
   background: #37474f;
 }
+.todo-info > * {
+  pointer-events: none;
+}
 .deadline-area {
   margin: 5px 5px 0;
   display: flex;

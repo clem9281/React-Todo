@@ -7,7 +7,6 @@ import AddDeleteButtons from "./AddDeleteButtons";
 
 import "./Todo.css";
 const TodoList = props => {
-  console.log(props.taskList.sort((a, b) => a.deadline - b.deadline));
   return (
     <section className="todo-list" id="todo-list">
       <AddDeleteButtons

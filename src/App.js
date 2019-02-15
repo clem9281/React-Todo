@@ -50,7 +50,6 @@ class App extends React.Component {
         deadline: this.state.deadline
       };
       const newData = this.sortByDeadline([...this.state.data, newTask]);
-
       this.setState({
         data: newData,
         task: "",
@@ -87,7 +86,6 @@ class App extends React.Component {
   clearMemory = event => {
     window.localStorage.clear();
     this.setState({ data: [] });
-    console.log(localStorage);
   };
   // shows and hides the form and the list
   showHideForm = () => {
