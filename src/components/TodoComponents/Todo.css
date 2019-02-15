@@ -129,3 +129,6 @@ input[type="date"] {
   color: #00838f;
   border: 2px solid #00838f;
 }
+.danger {
+  color: #c62828;
+}

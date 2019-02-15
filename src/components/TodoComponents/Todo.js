@@ -10,7 +10,17 @@ const Todo = props => {
           {props.textContent}
         </p>
         <div className="deadline-area">
-          <FontAwesomeIcon className="clock" icon={["far", "clock"]} />
+          <FontAwesomeIcon
+            className={
+              moment(props.deadline).diff(
+                moment().format("YYYY-MM-DD"),
+                "hours"
+              ) <= 24
+                ? "clock danger"
+                : "clock"
+            }
+            icon={["far", "clock"]}
+          />
           <p className="deadline">{moment(props.deadline).format("MMM Do")}</p>
         </div>
       </div>
