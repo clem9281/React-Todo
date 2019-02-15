@@ -55,32 +55,31 @@ class App extends React.Component {
         task: "",
         deadline: moment().format("YYYY-MM-DD")
       });
-      localStorage.setItem(
-        "taskData",
-        JSON.stringify([...this.state.data, newTask])
-      );
+      this.localStore(newData);
       this.showHideForm();
     }
   };
   // handles clicking on the li element found in Todo
   handleTaskClick = event => {
-    this.setState({
-      data: this.state.data.map(element => {
-        if (element.id === Number(event.target.id)) {
-          return { ...element, completed: !element.completed };
-        }
-        return element;
-      })
+    const newData = this.state.data.map(element => {
+      if (element.id === Number(event.target.id)) {
+        return { ...element, completed: !element.completed };
+      }
+      return element;
     });
+    this.setState({
+      data: newData
+    });
+    this.localStore(newData);
   };
   // handles click even of clear completed in TodoForm, removes completed item from list, and from local storage
   clear = event => {
     event.preventDefault();
-    let newData = this.state.data.filter(element => !element.completed);
+    const newData = this.state.data.filter(element => !element.completed);
     this.setState({
       data: newData
     });
-    localStorage.setItem("taskData", JSON.stringify(newData));
+    this.localStore(newData);
   };
   // handles click event of delete list button in TodoForm, deletes the list data from local storage, and erases the list
   clearMemory = event => {
@@ -92,10 +91,14 @@ class App extends React.Component {
     document.getElementById("add-form").classList.toggle("hide");
     document.getElementById("todo-list").classList.toggle("hide");
   };
+  // sort and array of objects by their deadline property
   sortByDeadline = array => {
     return array.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
   };
-
+  // store in local storage
+  localStore = arr => {
+    localStorage.setItem("taskData", JSON.stringify(arr));
+  };
   render() {
     return (
       <section className="todolist-container">
