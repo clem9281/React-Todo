@@ -1,23 +1,37 @@
 .todolist-container header {
-  background: url(https://images.unsplash.com/photo-1549321682-36e2f8000f4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80);
-  background-size: cover;
-  background-position: center bottom;
+  background: #00838f;
   height: 100px;
-  color: white;
+
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .todo-list {
-  margin: 20px 0;
+  padding: 20px 0;
 }
 .todo-item {
   width: 90%;
   margin: 10px auto;
-  box-shadow: 3px 3px 5px grey, -1px -1px 3px grey;
-  border-radius: 5px;
+  border-radius: 2px;
   padding: 10px;
   cursor: pointer;
+  background: #37474f;
+}
+.todo-info > * {
+  pointer-events: none;
+}
+.deadline-area {
+  margin: 5px 5px 0;
+  display: flex;
+  align-items: center;
+}
+.clock {
+  font-size: 1.4rem;
+  margin-right: 5px;
+}
+.deadline {
+  color: #cfd8dc;
+  font-size: 1.4rem;
 }
 .list-buttons {
   width: 90%;
@@ -25,23 +39,96 @@
   display: flex;
   justify-content: flex-end;
 }
-.add-button {
+.list-buttons button,
+.add-form .close-form {
   border-radius: 50%;
-  background: #4caf50;
   height: 4rem;
   width: 4rem;
-  border: none;
   cursor: pointer;
+  font-size: 2rem;
+}
+.add-button {
+  background: #4caf50;
+  border: 2px solid #4caf50;
+}
+.add-button:hover {
+  background: transparent;
+  color: #4caf50;
+}
+.check-button {
+  border: 2px solid #00838f;
+  background: #00838f;
+  margin: 0 2rem;
+}
+.check-button:hover {
+  background: transparent;
+  color: #00838f;
 }
 .delete-button {
-  border-radius: 50%;
   background: #c62828;
-  height: 4rem;
-  width: 4rem;
-  border: none;
-  margin-left: 2rem;
-  cursor: pointer;
+  border: 2px solid #c62828;
+}
+.delete-button:hover {
+  background: transparent;
+  color: #c62828;
 }
 .completed {
   text-decoration: line-through;
+}
+.hide {
+  display: none;
+}
+
+/* add task form */
+.add-form {
+  padding: 20px 0;
+  position: relative;
+}
+.add-form form {
+  width: 90%;
+  margin: 0 auto;
+}
+input,
+label {
+  font-family: ;
+}
+label {
+  margin: 0 10px;
+}
+input {
+  border: 1px solid grey;
+  border-radius: 2px;
+  margin: 10px 0 20px;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+}
+input[type="date"] {
+  padding: 5px;
+}
+.form-exit {
+  text-align: right;
+  width: 90%;
+  margin: 0 auto;
+}
+.close-form {
+  background: #263238;
+  color: #00838f;
+  border: 2px solid #00838f;
+}
+.task-buttons {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+.add-todo {
+  padding: 1rem 4rem;
+  background: #37474f;
+  margin: 10px auto;
+  color: #00838f;
+  border: 2px solid #00838f;
+}
+.danger {
+  color: #c62828;
 }

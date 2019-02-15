@@ -2,18 +2,22 @@ import React from "react";
 import TodoList from "./components/TodoComponents/TodoList";
 import TodoForm from "./components/TodoComponents/TodoForm";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { faCheckDouble } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
-library.add(faPlus, faTrashAlt);
+library.add(faPlus, faTrashAlt, faTimes, faClock, faCheckDouble);
 
+let moment = require("moment");
 const todoData = [
   {
     task: "Sample Task Data",
     id: Date.now(),
-    completed: false
+    completed: false,
+    deadline: moment().format("YYYY-MM-DD")
   }
 ];
 
@@ -24,13 +28,16 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: todoData,
-      task: ""
+      data: localStorage.taskData
+        ? this.sortByDeadline(JSON.parse(localStorage.getItem("taskData")))
+        : todoData,
+      task: "",
+      deadline: moment().format("YYYY-MM-DD")
     };
   }
   // handles the change of the input field found in TodoForm
   handleChange = event => {
-    this.setState({ task: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   };
   // handles click event of add todo button in TodoForm
   addTask = event => {
@@ -39,50 +46,59 @@ class App extends React.Component {
       const newTask = {
         task: this.state.task,
         id: Date.now(),
-        completed: false
+        completed: false,
+        deadline: this.state.deadline
       };
+      const newData = this.sortByDeadline([...this.state.data, newTask]);
       this.setState({
-        data: [...this.state.data, newTask],
-        task: ""
+        data: newData,
+        task: "",
+        deadline: moment().format("YYYY-MM-DD")
       });
-      localStorage.setItem(
-        "taskData",
-        JSON.stringify([...this.state.data, newTask])
-      );
+      this.localStore(newData);
+      this.showHideForm();
     }
   };
   // handles clicking on the li element found in Todo
   handleTaskClick = event => {
-    this.setState({
-      data: this.state.data.map(element => {
-        if (element.id === Number(event.target.id)) {
-          return { ...element, completed: !element.completed };
-        }
-        return element;
-      })
+    const newData = this.state.data.map(element => {
+      if (element.id === Number(event.target.id)) {
+        return { ...element, completed: !element.completed };
+      }
+      return element;
     });
+    this.setState({
+      data: newData
+    });
+    this.localStore(newData);
   };
   // handles click even of clear completed in TodoForm, removes completed item from list, and from local storage
   clear = event => {
     event.preventDefault();
-    let newData = this.state.data.filter(element => !element.completed);
+    const newData = this.state.data.filter(element => !element.completed);
     this.setState({
       data: newData
     });
-    localStorage.setItem("taskData", JSON.stringify(newData));
+    this.localStore(newData);
   };
   // handles click event of delete list button in TodoForm, deletes the list data from local storage, and erases the list
   clearMemory = event => {
     window.localStorage.clear();
     this.setState({ data: [] });
-    console.log(localStorage);
   };
-  componentDidMount() {
-    // if there is anything in the local storage, set the state data to that instead of the sample data. If local storage is an empty array, the list displays nothing, but it doesn't throw an error so I'm going to leave it like that, it might serve a purpose for someone
-    if (localStorage.taskData) {
-      this.setState({ data: JSON.parse(localStorage.getItem("taskData")) });
-    }
-  }
+  // shows and hides the form and the list
+  showHideForm = () => {
+    document.getElementById("add-form").classList.toggle("hide");
+    document.getElementById("todo-list").classList.toggle("hide");
+  };
+  // sort and array of objects by their deadline property
+  sortByDeadline = array => {
+    return array.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+  };
+  // store in local storage
+  localStore = arr => {
+    localStorage.setItem("taskData", JSON.stringify(arr));
+  };
   render() {
     return (
       <section className="todolist-container">
@@ -92,13 +108,16 @@ class App extends React.Component {
         <TodoList
           taskList={this.state.data}
           clickElement={this.handleTaskClick}
+          clickCheck={this.clear}
+          clickTrash={this.clearMemory}
+          clickPlus={this.showHideForm}
         />
         <TodoForm
+          clickTimes={this.showHideForm}
           inputOnChange={this.handleChange}
           addTask={this.addTask}
-          inputValue={this.state.task}
-          onClear={this.clear}
-          deleteList={this.clearMemory}
+          textValue={this.state.task}
+          dateValue={this.state.deadline}
         />
       </section>
     );
