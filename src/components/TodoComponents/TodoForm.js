@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const TodoForm = props => {
+  console.dir(document.getElementsByTagName("input"));
   return (
     <section className="add-form hide" id="add-form">
       <div className="form-exit">
@@ -21,6 +22,7 @@ const TodoForm = props => {
             name="deadline"
             onChange={props.inputOnChange}
             value={props.dateValue}
+            min={props.dateValue}
             required
           />
         </div>
