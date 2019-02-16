@@ -7,9 +7,10 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { faCheckDouble } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
-library.add(faPlus, faTrashAlt, faTimes, faClock, faCheckDouble);
+library.add(faPlus, faTrashAlt, faTimes, faClock, faCheckDouble, faCheckCircle);
 
 let moment = require("moment");
 const todoData = [
