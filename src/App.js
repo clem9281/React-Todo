@@ -36,6 +36,10 @@ class App extends React.Component {
       deadline: moment().format("YYYY-MM-DD")
     };
   }
+  componentDidUpdate(prevProps, prevState) {
+    console.log("prev:", prevState, "current: ", this.state);
+    console.log("updated");
+  }
   // handles the change of the input field found in TodoForm
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
